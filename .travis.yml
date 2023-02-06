@@ -3,20 +3,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t vkindrat/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t kindrat02/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true vkindrat/react-test npm run test
+  - docker run -e CI=true kindrat02/react-test npm run test
 
 after_success:
-  - docker build -t vkindrat/multi-client ./client
-  - docker build -t vkindrat/multi-server ./server
-  - docker build -t vkindrat/multi-worker ./worker
-  - docker build -t vkindrat/multi-nginx ./nginx
+  - docker build -t kindrat02/multi-client ./client
+  - docker build -t kindrat02/multi-server ./server
+  - docker build -t kindrat02/multi-worker ./worker
+  - docker build -t kindrat02/multi-nginx ./nginx
   # Log in to the Docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push Docker images
-  - docker push vkindrat/multi-client
-  - docker push vkindrat/multi-server
-  - docker push vkindrat/multi-worker
-  - docker push vkindrat/multi-nginx
+  - docker push kindrat02/multi-client
+  - docker push kindrat02/multi-server
+  - docker push kindrat02/multi-worker
+  - docker push kindrat02/multi-nginx
