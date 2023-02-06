@@ -13,3 +13,10 @@ after_success:
   - docker build -t vkindrat/multi-server ./server
   - docker build -t vkindrat/multi-worker ./worker
   - docker build -t vkindrat/multi-nginx ./nginx
+  # Log in to the Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push Docker images
+  - docker push vkindrat/multi-client
+  - docker push vkindrat/multi-server
+  - docker push vkindrat/multi-worker
+  - docker push vkindrat/multi-nginx
