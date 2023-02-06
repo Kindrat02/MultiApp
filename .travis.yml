@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t vkindrat/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true vkindrat/react-test npm run test
+
+after_success:
+  - docker build -t vkindrat/multi-client ./client
+  - docker build -t vkindrat/multi-server ./server
+  - docker build -t vkindrat/multi-worker ./worker
+  - docker build -t vkindrat/multi-nginx ./nginx
